@@ -11,7 +11,7 @@ from port import *
 class Adafruit_MQTT:
     AIO_FEED_IDs = ["nutnhan1", "nutnhan2"]
     AIO_USERNAME = "robotanh"
-    AIO_KEY = "aio_BQbW58ye32z3VPIdbWlPGdpOedI4"
+    AIO_KEY = "aio_mFPa08zNEKpkFVQlSUliRartuyBi"
 
     def connected(self, client):
         print("Connected ...")
@@ -26,7 +26,18 @@ class Adafruit_MQTT:
         sys.exit(1)
 
     def message(self, client, feed_id, payload):
-        print("Received: " + payload)
+        print("Received: " + payload + ", feed id: "+feed_id)
+        if feed_id == "nutnhan1":
+            if payload == "0":
+                writeData("1")
+            else:
+                writeData("2")
+        if feed_id == "nutnhan2":
+            if payload == "0":
+                writeData("3")
+            else:
+                writeData("4")
+
 
     def __init__(self):
         self.client = MQTTClient(self.AIO_USERNAME, self.AIO_KEY)

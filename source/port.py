@@ -27,7 +27,6 @@ def list_ports():
         dev_port +=1
     return available_ports,working_ports,non_working_ports
 
-
 def getPort():
     ports = serial.tools.list_ports.comports()
     N = len(ports)
@@ -39,6 +38,12 @@ def getPort():
             splitPort = strPort.split(" ")
             commPort = (splitPort[0])
     return "COM5"
+# def getPort():
+#     ports = serial.tools.list_ports.comports()
+#     for port in ports:
+#         if "COM" in port.description:
+#             return port.device
+#     return "None"
 
 if getPort()!= "None":
     ser = serial.Serial( port=getPort(), baudrate=115200)
@@ -57,7 +62,6 @@ def processData(client,data):
         print("cambien3 = " + splitData[2])
 
 
-    
 mess = ""
 def readSerial(client):
     bytesToRead = ser.inWaiting()
@@ -72,3 +76,6 @@ def readSerial(client):
                 mess = ""
             else:
                 mess = mess[end+1:]
+
+def writeData(data):
+    ser.write(str(data).encode('utf-8'))
